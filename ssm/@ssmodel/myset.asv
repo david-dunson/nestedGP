@@ -1,0 +1,21 @@
+function model = set(model, A, M, func, grad, psi, pmask)
+
+%@SSMODEL/SET Set model elements.
+%   model = SET(model0, A, M[, func, grad, psi, pmask])
+
+% (c) 2006-2007 Jyh-Ying Peng ´^´¼·­
+% $Revision 1.0.0 $ $Generated: 2007/09/04 $
+%%%%%%% TODO: currently only support addition of one element
+switch A{1}(1)
+
+    case 'Q'
+        if ~isequal(size(M), size(model.Q)) || all(getn(M) ~= [1 model.n]), error('ssm:ssmodel:set:InconsistentModel', 'Q must have consistent dimensions.'); end
+        model.Q                             = M;
+        model.A(adj_allQ & model.A == 1)    = -1;
+        otherwise
+        error('ssm:ssmodel:set:InputError', 'Unsupported adjacency matrix.');
+end
+
+
+
+
